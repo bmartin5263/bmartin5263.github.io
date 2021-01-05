@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    
+        <meta charset="utf-8">
+        <title> Contact </title>
+        
+        <script>
+        
+            function validateForm() {
+                
+                var nameField = document.getElementById("name_entry");
+                var emailField = document.getElementById("email");
+                var messageField = document.getElementById("message");
+                
+                var ok = true;
+                
+                if (nameField.value === "") {
+                    ok = false;
+                    nameField.style.borderColor = "#ff00f5";
+                }
+                
+                if (emailField.value === "") {
+                    ok = false;
+                    emailField.style.borderColor = "#ff00f5";
+                }
+                
+                if (messageField.value === "") {
+                    ok = false;
+                    messageField.style.borderColor = "#ff00f5";
+                }
+                
+                if (ok) {
+                    window.open("thank_you.html", "_self");
+                }
+                
+            }
+            
+            function clearForm() {
+                var nameField = document.getElementById("name_entry");
+                var emailField = document.getElementById("email");
+                var messageField = document.getElementById("message");
+                nameField.value = "";
+                emailField.value = "";
+                messageField.value = "";
+                nameField.style.borderColor = "#919191"
+                emailField.style.borderColor = "#919191"
+                messageField.style.borderColor = "#919191"
+            }
+            
+            function inputFocus(id) {
+                id.style.borderColor = "#50ff79";
+            }
+            
+            function inputBlur(id) {
+                if (id.value != "") {
+                    id.style.borderColor = "#50ff79";
+                }
+                else {
+                    id.style.borderColor = "#919191";
+                }
+            }
+        
+        </script>
+        
+        <link rel="stylesheet" href="styles.css">
+        
+    </head>
+    <body>
+        
+        <div id="container">
+        
+            <header>
+                C:\Brandon_Martin\Contact_Me
+            </header>
+            
+            <nav>
+                <a href="home.html">About Me</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="resume.html">Resume</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="projects.html">Code Projects</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="videos.html">Video Projects</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="contact.html">Contact Me</a>
+            </nav>
+
+            <article>
+                <div class="centerHolder">
+                    <a class="center" href="https://www.facebook.com/brandon.martin.7549">
+                        <img src="https://facebookbrand.com/wp-content/uploads/2019/04/f_logo_RGB-Hex-Blue_512.png" alt="HTML tutorial" style="width:75px;height:75px;border:0;"></a>
+                    <a class="center" href="https://github.com/bmartin5263">
+                        <img src="http://www.stickpng.com/assets/images/5847f981cef1014c0b5e48be.png" alt="HTML tutorial" style="width:75px;height:75px;border:0;"></a>
+                    <a class="center" href="https://www.linkedin.com/in/brandon-martin-0a7772a5/">
+                        <img src="https://cdn.freebiesupply.com/logos/large/2x/linkedin-icon-logo-png-transparent.png" alt="HTML tutorial" style="width:75px;height:75px;border:0;"></a>
+                    <a class="center" href="mailto:bsm2112@yahoo.com">
+                        <img src="http://www.enviro1services.com.au/wp-content/uploads/2018/06/Circle-icons-mail.svg.png" alt="HTML tutorial" style="width:75px;height:75px;border:0;"></a>
+                </div>
+                                    
+                <hr width="100%">
+
+                <form>
+                
+                    <table id="inputTable" cellpadding="5">
+            
+                        <tr>
+
+                            <td align="right">Name:</td>
+                            <td><input type="text" id="name_entry" onfocus="inputFocus(name_entry)" onblur="inputBlur(name_entry)" size="50"></td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td align="right">Email Address:</td>
+                            <td><input type="text" id="email" onfocus="inputFocus(email)" onblur="inputBlur(email)" size="50"></td>
+
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td valign="top" align="right">Message:</td>
+                            <td>
+                                <textarea cols="49" rows="5" id="message" onfocus="inputFocus(message)" onblur="inputBlur(message)"></textarea>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="2" align="right">
+                                <input class="button" type="button" value="Clear" onclick="clearForm()">
+                                &nbsp;
+                                <input class="button" type="button" value="Send" onclick="validateForm()">
+                            </td>
+                        </tr>
+
+                    </table>
+                    
+                </form>
+            
+            </article>
+            
+            <footer>
+            
+                Copyright 2019 by Brandon Martin. All Rights Reserved.
+            
+            </footer>
+        
+        </div>
+
+    </body>
+
+</html>

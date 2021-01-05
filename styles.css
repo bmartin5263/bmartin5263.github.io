@@ -1,0 +1,264 @@
+body {
+    background-color: #242424;
+    margin-top: 30px;
+}
+
+div#container {
+    position: static;
+    box-sizing: border-box;
+    width: 900px;
+
+    /* center */
+    margin-left: auto;
+    margin-right: auto;
+
+    background-color: rgba(0,0,0,.9);
+}
+
+p {
+    line-height: 27px;
+}
+
+header {
+    position: static;
+    box-sizing: border-box;
+    font-family: Courier;
+    text-align: left;
+    font-size: 20px;
+    background: #000000;
+    color: #ff00f5;
+    border: 5px solid #b7b7b7;
+    padding: 10px;
+}
+
+nav {
+    position: static;
+    box-sizing: border-box;
+    background-color: black;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    border-left: 5px solid #b7b7b7;
+    border-right: 5px solid #b7b7b7;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-family: courier;
+    font-weight: 100
+}
+
+article {
+    position: static;
+    box-sizing: border-box;
+    border: 5px solid #b7b7b7;
+    font-size: 16px;
+    font-family: avenir next;
+    padding: 10px;
+    line-height: 25px;
+    color: #83ff83;
+    overflow: auto;
+}
+
+footer {
+    clear: both;
+    color: white;
+    background-color: #00468d;
+    font-family: courier;
+    text-align: center;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.portrait {
+    position: static;
+    box-sizing: border-box;
+    height: 250px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    /* circle */
+    border-radius: 100%;
+    background-position: -400px 0px;
+    background-image: url(me2.png);
+    background-size: cover;
+
+}
+
+.tagline {
+    position: static;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #575757;
+    text-align: center;
+    font-size: 30px;
+    font-family: courier new;
+    font-weight: 100;
+    line-height: 40px;
+}
+
+.header {
+    position: static;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #1d00ff;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    font-family: courier new;
+    font-weight: 100;
+    line-height: 40px;
+}
+
+.divider {
+    position: static;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #575757;
+    font-size: 16px;
+    font-family: monaco;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.resume_section_header {
+    position: static;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    background-color: #0000ff;
+    font-size: 16px;
+    font-family: monaco;
+    line-height: 20px;
+    padding-left: 5px;
+    color: #ffffff;
+}
+
+a {
+    font-size: 16px;
+    font-family: menlo;
+    font-weight: 500;
+}
+
+nav a:link {
+    color: #fff500;
+}
+
+nav a:visited {
+    color: #fff500;
+}
+
+nav a:hover {
+    background-color: #000c9b;
+    color: white;
+}
+
+nav a:active {
+    color: #2658ff;
+}
+
+a.general_link  {
+    font-size: 14px;
+    font-family: menlo;
+}
+
+a.general_link:link {
+    color: #fff500;
+}
+
+a.general_link:visited {
+    color: #fff500;
+}
+
+a.general_link:hover {
+    background-color: #000c9b;
+    color: white;
+}
+
+a.general_link:active {
+    color: #2658ff;
+}
+
+.resume_item {
+    color: #ff3ff0;
+}
+            
+.resume_sub_item {
+    color: #ff3ff0;
+    font-style: italic;
+}
+
+.resume_push_right {
+    padding-left: 5px;
+}
+
+input {
+    font-size: 14px;
+    border: 2px solid #919191;
+    background-color: black;
+    color: white;
+    padding: 4px;
+    font-family: avenir;
+}
+
+textarea {
+    font-size: 14px;
+    border: 2px solid #919191;
+    background-color: black;
+    color: white;
+    padding: 4px;
+    font-family: avenir;
+}
+
+#inputTable {
+    position: static;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerHolder {
+    text-align: center;
+}
+
+.center {
+    display:inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button {
+    padding-left: 30px;
+    padding-right: 30px;
+    border-color: white;
+}
+
+.button:hover {
+    border-color: #00b1ff;
+    cursor: pointer;
+}
+
+.project {
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+li {
+    /*font-size: 14px;*/
+    line-height: 25px;
+}
+
+aside#left {
+    position: static;
+    box-sizing: border-box;
+    float: left;
+    width: 200px;
+    height: 450px;
+    background-color: black;
+}

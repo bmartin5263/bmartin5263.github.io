@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+    
+        <meta charset="utf-8">
+        <title> Code Projects </title>
+        
+        <link rel="stylesheet" href="styles.css">
+        
+    </head>
+    <body>
+        
+        <div id="container">
+        
+            <header>
+                C:\Brandon_Martin\Code_Projects
+            </header>
+            
+            <nav>
+                <a href="home.html">About Me</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="resume.html">Resume</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="projects.html">Code Projects</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="videos.html">Video Projects</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="contact.html">Contact Me</a>
+            </nav>
+
+            <article>
+                
+                <div class="header">
+                    Uno
+                </div>
+                
+                <div class="project">
+                    <p>
+                        <img src="uno.png" style="float: right; width: 400px;">
+                        Recreation of the classic Uno card game with modified rules, text-based graphics, and computer-controlled AI players. Written in Python 3.
+                        <br>
+                        <br>
+                        This project was based on an Uno game I wrote during my Sophomore year at DePaul University. The original Uno game was made in Python using simple print statements for graphics. My goals with this updated version was to expand what I had already created by updating the user interface by using the NCurses module. NCurses allowed me to create a more intuitive user interface and include more visual effects since I had more control over the text graphics.
+                        <br>
+                        <br>
+                        After finishing this version, my next goal was to once again expand on this program and add networking on top of it for online pay with friends.
+                    </p>
+                </div>
+                
+                <div class="header">
+                    Flash Cards
+                </div>
+                
+                <div class="project">
+                
+                    <p>
+                        <img src="flash_card.png" style="float: left; width: 350px; padding-right: 10px;">
+                        Text-based Flash Cards program for creating decks of flash cards for taking notes and quizing yourself. Written in C++.
+                        <br>
+                        <br>
+                        This project was my first major program I developed using C++ as an excercise in understanding the language. I restricted my use of STL, templates, and other advanced features so I can also further understand the C language, just with the addition of classes.
+                        <br>
+                        <br>
+                        This was also my largest text-based application at the time, with multiple screens, saved data, various visual components, etc. The problems I encountered in making this program inspired me to start building Cursen, a event-based framework for developing text applications. This framework aims to streamline the production of text applications using a format similar to other GUI frameworks like WinForms.
+                    </p>
+                    
+                </div>
+
+                <div class="header">
+                    Tetris
+                </div>
+                
+                <div class="project">
+                
+                    <p>
+                        <img src="tetris" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
+                        Recreation of the classic Tetris game with text-based graphics. Created during my Junior year at DePaul University, my goals with this project was to experiment with the curses module and threading to create a text-based non turn-based game that deals with user-input concurrently with computer input. Written in Python 3.
+                        <br>
+                        <br>
+                        This project was my first attempt at making a Real-time game, as opposed to turn based games like Chess and Uno. In order to do this, I needed a way of getting individual key presses and update the screen constantly. To accomplish this, I learned about the NCurses module which solved both of those problems. Now I was able to receive input from the user without needing them to keep pressing enter and the screen wouldn't have to reprint itself in the terminal every update.
+                        <br>
+                        <br>
+                        I also experimented with Python's threading module in order to make the tetris piece automatically fall when the user waits long enough. 
+                    </p>
+                    
+                </div>
+                
+            
+            </article>
+            
+            <footer>
+            
+                Copyright 2019 by Brandon Martin. All Rights Reserved.
+            
+            </footer>
+        
+        </div>
+
+    </body>
+
+</html>
