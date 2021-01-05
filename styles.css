@@ -57,7 +57,8 @@ article {
     font-family: avenir next;
     padding: 10px;
     line-height: 25px;
-    color: #83ff83;
+    /* color: #83ff83; */
+    color: #ffffff;
     overflow: auto;
 }
 
