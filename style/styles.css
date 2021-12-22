@@ -17,6 +17,8 @@ div#container {
 
 p {
     line-height: 27px;
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 header {
@@ -82,7 +84,7 @@ footer {
     /* circle */
     border-radius: 100%;
     background-position: -400px 0px;
-    background-image: url(me2.png);
+    background-image: url(../img/me2.png);
     background-size: cover;
 
 }
@@ -188,6 +190,11 @@ a.general_link:active {
 
 .resume_item {
     color: #ff3ff0;
+}
+
+.strong {
+    color: #87ff91;
+    font-weight: 500;
 }
             
 .resume_sub_item {
