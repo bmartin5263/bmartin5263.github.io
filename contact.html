@@ -9,13 +9,12 @@
         <script>
         
             function validateForm() {
-                
-                var nameField = document.getElementById("name_entry");
-                var emailField = document.getElementById("email");
-                var messageField = document.getElementById("message");
-                
-                var ok = true;
-                
+
+                const nameField = document.getElementById("name_entry");
+                const emailField = document.getElementById("email");
+                const messageField = document.getElementById("message");
+
+                let ok = true;
                 if (nameField.value === "") {
                     ok = false;
                     nameField.style.borderColor = "#ff00f5";
@@ -54,7 +53,7 @@
             }
             
             function inputBlur(id) {
-                if (id.value != "") {
+                if (id.value !== "") {
                     id.style.borderColor = "#50ff79";
                 }
                 else {
