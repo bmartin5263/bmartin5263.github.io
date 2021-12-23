@@ -33,19 +33,25 @@
             <article>
                 
                 <div class="header">
-                    Uno
+                    Uno (C++)
                 </div>
                 
                 <div class="project">
                     <p>
                         <img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;">
-                        Recreation of the classic Uno card game with modified rules, text-based graphics, and computer-controlled AI players. Written in Python 3.
+                        A recreation of Mattel's card game written in C++ using my custom text-based game engine with 4-player online multiplayer capabilities.
+                        My goal with this project was to put my text-based game engine Cursen to the test by creating an actual game out of it.
+                        I also wanted to build something with multiplayer support over sockets <em>and</em> local single-player against a computer AI
                         <br>
                         <br>
-                        This project was based on an Uno game I wrote during my Sophomore year at DePaul University. The original Uno game was made in Python using simple print statements for graphics. My goals with this updated version was to expand what I had already created by updating the user interface by using the NCurses module. NCurses allowed me to create a more intuitive user interface and include more visual effects since I had more control over the text graphics.
+                        The toughest feature to implement for this project was the multiplayer support over sockets.
+                        My strategy for distributing game state is to have <span class="strong">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
+                        The <span class="strong">host player enforces the game's rules</span> by validating messages sent by other players.
+                        Any legal change to the game state causes the host broadcasting updates to each player
                         <br>
                         <br>
-                        After finishing this version, my next goal was to once again expand on this program and add networking on top of it for online pay with friends.
+                        I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.
+
                     </p>
                 </div>
                 
