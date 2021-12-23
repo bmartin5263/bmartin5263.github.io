@@ -7,7 +7,8 @@
         <title> Code Projects </title>
         
         <link rel="stylesheet" href="style/styles.css">
-        
+        <link rel="stylesheet" type="text/css" href="resources/lightbox.css">
+
     </head>
     <body>
         
@@ -20,7 +21,7 @@
             <nav>
                 <a href="index.html">About Me</a>
                 &nbsp;&nbsp;&nbsp;
-                <a class="nav_button" href="files/resume.pdf" download="Brandon Martin Resume">Resume</a>
+                <a class="nav_button" href="resources/resume.pdf" download="Brandon Martin Resume">Resume</a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="projects.html">Code Projects</a>
                 &nbsp;&nbsp;&nbsp;
@@ -37,7 +38,7 @@
                 
                 <div class="project">
                     <p>
-                        <img src="img/uno.png" style="float: right; width: 400px;">
+                        <img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;">
                         Recreation of the classic Uno card game with modified rules, text-based graphics, and computer-controlled AI players. Written in Python 3.
                         <br>
                         <br>
@@ -53,18 +54,17 @@
                 </div>
                 
                 <div class="project">
-                
+                    <a href="images/flash_card.png" data-lightbox="flash_card" data-title="My caption"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
+                    <!--                    <img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards">-->
                     <p>
-                        <img src="img/flash_card.png" style="float: left; width: 350px; padding-right: 10px;">
-                        Text-based Flash Cards program for creating decks of flash cards for taking notes and quizing yourself. Written in C++.
-                        <br>
-                        <br>
-                        This project was my first major program I developed using C++ as an excercise in understanding the language. I restricted my use of STL, templates, and other advanced features so I can also further understand the C language, just with the addition of classes.
-                        <br>
-                        <br>
-                        This was also my largest text-based application at the time, with multiple screens, saved data, various visual components, etc. The problems I encountered in making this program inspired me to start building Cursen, a event-based framework for developing text applications. This framework aims to streamline the production of text applications using a format similar to other GUI frameworks like WinForms.
+                        Text-based Flash Cards program for creating decks of flash cards for taking notes and quizing yourself. Written in C++
                     </p>
-                    
+                    <p>
+                        This project was my first major program I developed using C++ as an excercise in understanding the language. I restricted my use of STL, templates, and other advanced features so I can also further understand the C language, just with the addition of classes
+                    </p>
+                    <p>
+                        This was also my largest text-based application at the time, with multiple screens, saved data, various visual components, etc. The problems I encountered in making this program inspired me to start building Cursen, a event-based framework for developing text applications. This framework aims to streamline the production of text applications using a format similar to other GUI frameworks like WinForms
+                    </p>
                 </div>
 
                 <div class="header">
@@ -74,7 +74,7 @@
                 <div class="project">
                 
                     <p>
-                        <img src="img/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
+                        <img src="images/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
                         Recreation of the classic Tetris game with text-based graphics. Created during my Junior year at DePaul University, my goals with this project was to experiment with the curses module and threading to create a text-based non turn-based game that deals with user-input concurrently with computer input. Written in Python 3.
                         <br>
                         <br>
@@ -97,6 +97,7 @@
         
         </div>
 
+        <script type="text/javascript" src="resources/lightbox-plus-jquery.js"></script>
     </body>
 
 </html>
