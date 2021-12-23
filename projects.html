@@ -35,33 +35,71 @@
                 <div class="header">
                     Uno (C++)
                 </div>
-                
                 <div class="project">
                     <p>
-                        <img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;">
-                        A recreation of Mattel's card game written in C++ using my custom text-based game engine with 4-player online multiplayer capabilities.
-                        My goal with this project was to put my text-based game engine Cursen to the test by creating an actual game out of it.
-                        I also wanted to build something with multiplayer support over sockets <em>and</em> local single-player against a computer AI
-                        <br>
-                        <br>
+                        <a href="images/uno.png" data-lightbox="uno"><img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;"></a>
+                        A text-based recreation of Mattel's card game with <span class="green">4-player online multiplayer over sockets</span>.
+                        Written in C++ and built using a custom text-based game engine.
+                        My goal with this project was to put my engine Cusen to the test by creating an actual game using it.
+                        I also wanted to make a game with multiplayer support over sockets as well as supporting local single-player against a computer AI.
+                        <br><br>
                         The toughest feature to implement for this project was the multiplayer support over sockets.
-                        My strategy for distributing game state is to have <span class="strong">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
-                        The <span class="strong">host player enforces the game's rules</span> by validating messages sent by other players.
-                        Any legal change to the game state causes the host broadcasting updates to each player
-                        <br>
-                        <br>
+                        My strategy for distributing game state is to have <span class="green">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
+                        The <span class="green">host player enforces the game's rules</span> by validating messages sent by other players.
+                        Any legal change to the game state causes the host broadcasting updates to each player.
+                        <br><br>
                         I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.
-
+                        The receiver deserializes the message to the proper class using header information and runs the command.
+                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
+                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally
                     </p>
                 </div>
-                
+
+<!--                <div class="header">-->
+<!--                    Cursen (C++)-->
+<!--                </div>-->
+<!--                <div class="project">-->
+<!--                    <p>-->
+<!--                        <img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;">-->
+<!--                        A text-based user interface framework written in C++ that can be used to create games and user interfaces with text graphics-->
+<!--                        <br><br>-->
+<!--                        The toughest feature to implement for this project was the multiplayer support over sockets.-->
+<!--                        My strategy for distributing game state is to have <span class="green">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.-->
+<!--                        The <span class="green">host player enforces the game's rules</span> by validating messages sent by other players.-->
+<!--                        Any legal change to the game state causes the host broadcasting updates to each player.-->
+<!--                        <br><br>-->
+<!--                        I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.-->
+<!--                        The receiver deserializes the message to the proper class using header information and runs the command.-->
+<!--                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.-->
+<!--                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally-->
+<!--                    </p>-->
+<!--                </div>-->
+
+<!--                <div class="header">-->
+<!--                    Puzzle Solver (Java)-->
+<!--                </div>-->
+<!--                <div class="project">-->
+<!--                    <a href="images/flash_card.png" data-lightbox="flash_card"><img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno"></a>-->
+<!--                    <p>-->
+<!--                        A text-based user interface framework written in C++ that can be used to create games and user interfaces with text graphics-->
+<!--                        <br><br>-->
+<!--                        The toughest feature to implement for this project was the multiplayer support over sockets.-->
+<!--                        My strategy for distributing game state is to have <span class="green">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.-->
+<!--                        The <span class="green">host player enforces the game's rules</span> by validating messages sent by other players.-->
+<!--                        Any legal change to the game state causes the host broadcasting updates to each player.-->
+<!--                        <br><br>-->
+<!--                        I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.-->
+<!--                        The receiver deserializes the message to the proper class using header information and runs the command.-->
+<!--                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.-->
+<!--                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally-->
+<!--                    </p>-->
+<!--                </div>-->
+<!--                -->
                 <div class="header">
-                    Flash Cards
+                    Flash Cards (C++)
                 </div>
-                
                 <div class="project">
-                    <a href="images/flash_card.png" data-lightbox="flash_card" data-title="My caption"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
-                    <!--                    <img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards">-->
+                    <a href="images/flash_card.png" data-lightbox="flash_card"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
                     <p>
                         Text-based Flash Cards program for creating decks of flash cards for taking notes and quizing yourself. Written in C++
                     </p>
@@ -74,31 +112,29 @@
                 </div>
 
                 <div class="header">
-                    Tetris
+                    Tetris (Python)
                 </div>
-                
                 <div class="project">
-                
                     <p>
                         <img src="images/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
-                        Recreation of the classic Tetris game with text-based graphics. Created during my Junior year at DePaul University, my goals with this project was to experiment with the curses module and threading to create a text-based non turn-based game that deals with user-input concurrently with computer input. Written in Python 3.
-                        <br>
-                        <br>
-                        This project was my first attempt at making a Real-time game, as opposed to turn based games like Chess and Uno. In order to do this, I needed a way of getting individual key presses and update the screen constantly. To accomplish this, I learned about the NCurses module which solved both of those problems. Now I was able to receive input from the user without needing them to keep pressing enter and the screen wouldn't have to reprint itself in the terminal every update.
-                        <br>
-                        <br>
+                        Recreation of the classic Tetris game with text-based graphics.
+                        Created during my Junior year at DePaul University, my goals with this project was to experiment with the curses module and threading to create a text-based non turn-based game that deals with user-input concurrently with computer input.
+                        Written in Python 3.
+                        <br><br>
+                        This project was my first attempt at making a Real-time game, as opposed to turn based games like Chess and Uno.
+                        In order to do this, I needed a way of getting individual key presses and update the screen constantly.
+                        I learned about the NCurses module which solved both of those problems.
+                        Now I was able to receive input from the user without needing them to keep pressing enter and the screen wouldn't have to reprint itself in the terminal every update.
+                        <br><br>
                         I also experimented with Python's threading module in order to make the tetris piece automatically fall when the user waits long enough. 
                     </p>
-                    
                 </div>
                 
             
             </article>
             
             <footer>
-            
                 Copyright 2019-2021 by Brandon Martin. All Rights Reserved.
-            
             </footer>
         
         </div>
