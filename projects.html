@@ -37,21 +37,41 @@
                 </div>
                 <div class="project">
                     <p>
-                        <a href="images/uno.png" data-lightbox="uno"><img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;"></a>
-                        A text-based recreation of Mattel's card game with <span class="note">4-player online multiplayer over sockets</span>.
+                        <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: right; width: 400px; padding-left: 10px;"></a>
+                        <span class="note">A text-based recreation of Mattel's card game with 4-player online multiplayer over sockets.</span>
                         Written in C++ and built using a custom text-based game engine.
                         My goal with this project was to put my engine Cursen to the test by creating an actual game using it.
                         I also wanted to make a game with multiplayer support over sockets as well as supporting local single-player against a computer AI.
                         <br><br>
                         The toughest feature to implement for this project was the multiplayer support over sockets.
-                        My strategy for distributing game state is to have <span class="note">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
-                        The <span class="note">host player enforces the game's rules</span> by validating messages sent by other players.
-                        Valid messages are interpreted by the host and the updated game state is broadcast to the other players.
-                        <br><br>
-                        I implemented my messages using a Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.
+                        <span class="note">My strategy for distributing game state is to have one player act as the host</span> who holds the authoritative game state and other players connect to that host.
+                        The host player enforces the game's rules by validating that messages sent by other players are legal game actions.
+                        <span class="note">Valid messages are interpreted by the host and the updated game state is broadcast to the other players.</span>
+                    </p>
+                    <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: right; width: 400px; padding-left: 10px;"></a>
+                    <p>
+                        I implemented my messages using a Command Pattern, where <span class="note">each possible message is defined as a class that can be serialized and sent over a socket.</span>
                         The receiver deserializes the message to the proper class using header information and runs the command.
-                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
+                        <span class="note">All changes to the game state get translated into messages that are forwarded to a command queue for distribution.</span>
                         Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
+                    </p>
+                </div>
+
+                <div class="header">
+                    Rosetta (Java + Kotlin)
+                </div>
+                <div class="project">
+                    <p>
+                        <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 500px; padding-right: 10px;"></a>
+                        <span class="note">Prototype rules engine and domain-specific language developed at CNA to automate the generation of our business rules documentation.</span>
+                        Developed as a possible solution to the business problem of having to manually maintain an Excel spreadsheet with hundreds of rows documenting our code's rules.
+                        My goal with this project was to <span class="note">develop a system where our team can write business rules in a CNA-specific DSL that can also be interpreted and documented at runtime.</span>
+                        Our documentation spreadsheet gets generated at runtime using all the written DSL rules, so it will always be in sync with the actual code.
+                        <br><br>
+                        This was my most challenging project to date as I was the only resource available to explore this solution and it required me to learn new software development skills.
+                        <span class="note">The toughest challenge was creating a DSL that could be expressive enough handle many different validation scenarios while being intuitive to use so new developers can pick it up easily.</span>
+                        It was a constant tug-of-war and required repeated experimentation and feedback from peers to get right.
+                        I ended up choosing Kotlin to create an embedded DSL using its DSL building features which made it possible to leverage our IDEs autocomplete features and type safety when writing rules.
                     </p>
                 </div>
 
@@ -101,13 +121,24 @@
                 <div class="project">
                     <a href="images/flash_card.png" data-lightbox="flash_card"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
                     <p>
-                        Text-based Flash Cards program for creating decks of flash cards for taking notes and quizing yourself. Written in C++
+                        <span class="note">Text-based C++ program that allows you to create decks of flash cards and quiz yourself.</span>
+                        I wrote this program in 2018 after completing my first college C++ course as an exercise to further understand both C and C++.
+                        I restricted my use of STL, strings, templates, and other advanced features so that I can also further understand the C language, just with the addition of classes.
+                        <br><br>
+                        <span class="note">The program uses entirely text-based graphics to represent various UI components</span> and a virtual cursor for the user to navigate the screens.
+                        Users can create decks of flash cards where each card has a front and back text as well as test themselves with a quiz mode that shuffles the cards.
+                        Decks can be saved to a plain text file and loaded after the application shuts down.
                     </p>
+                    <br>
+                    <br>
+                    <a href="images/flash-cards-2.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-2.png" style="float: right; width: 400px; padding: 10px;" alt="Flashcards"></a>
                     <p>
-                        This project was my first major program I developed using C++ as an excercise in understanding the language. I restricted my use of STL, templates, and other advanced features so I can also further understand the C language, just with the addition of classes
-                    </p>
-                    <p>
-                        This was also my largest text-based application at the time, with multiple screens, saved data, various visual components, etc. The problems I encountered in making this program inspired me to start building Cursen, a event-based framework for developing text applications. This framework aims to streamline the production of text applications using a format similar to other GUI frameworks like WinForms
+                        Manual memory management was tough when most of my prior experience was in managed languages like Java and this program needed to use a lot of strings.
+                        To help mitigate this <span class="note">I looked for opportunities to use stack memory whenever I knew at compile time how much data I might need</span> and only use heap memory for polymorphism or Linked Lists.
+                        <br><br>
+                        This was my largest text-based application at the time, with multiple screens, saved data, various visual components, user input, etc.
+                        During this time I still lacked experience in software design patterns for user interfaces, especially for text-based ones so the code is a bit rough around the edges.
+                        However, <span class="note">this experience inspired me to later create a text-based UI framework called Cursen to assist me in making future text games</span>.
                     </p>
                 </div>
 
