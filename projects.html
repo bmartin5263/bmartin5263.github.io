@@ -79,6 +79,13 @@
                         <span class="note">I used a Visitor pattern to develop an Interpreter and Documentor which would traverse the tree structure to either execute the rules on a JSON request or produce documentation.</span>
                         The Interpreter would handle testing the request generating helpful error messages while the Documentor could output the logic as an Excel spreadsheet or JSON for web consumption.
                     </p>
+                    <a href="images/rosetta-2.png" data-lightbox="rosetta-2"><img src="images/rosetta-2.png" style="float: left; width: 550px; padding-right: 10px"></a>
+                    <p>
+                        Properties in the request JSON were specified using <a href="https://medium.com/javascript-scene/lenses-b85976cb0534">Lenses</a> provided by my custom-built Kotlin lens library.
+                        Lenses are defined as a series of getters that are used traverse the request object tree while protecting against null pointers and generating a JSON path from class metadata.
+                        This allowed the DSL writers to not need to worry about figuring out JSON paths or checking for nulls, the lenses handle it automatically.
+                    </p>
+                    <br><br>
                     <div>Rosetta icon made by <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 </div>
 
