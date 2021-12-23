@@ -15,7 +15,7 @@
         <div id="container">
         
             <header>
-                C:\Brandon\Code-Projects
+                C:\Brandon\Software-Projects
             </header>
             
             <nav>
@@ -23,7 +23,7 @@
                 &nbsp;&nbsp;&nbsp;
                 <a class="nav_button" href="resources/resume.pdf" download="Brandon Martin Resume">Resume</a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="projects.html">Code Projects</a>
+                <a href="projects.html">Software Projects</a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="videos.html">Video Projects</a>
                 &nbsp;&nbsp;&nbsp;
@@ -38,20 +38,20 @@
                 <div class="project">
                     <p>
                         <a href="images/uno.png" data-lightbox="uno"><img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;"></a>
-                        A text-based recreation of Mattel's card game with <span class="green">4-player online multiplayer over sockets</span>.
+                        A text-based recreation of Mattel's card game with <span class="note">4-player online multiplayer over sockets</span>.
                         Written in C++ and built using a custom text-based game engine.
-                        My goal with this project was to put my engine Cusen to the test by creating an actual game using it.
+                        My goal with this project was to put my engine Cursen to the test by creating an actual game using it.
                         I also wanted to make a game with multiplayer support over sockets as well as supporting local single-player against a computer AI.
                         <br><br>
                         The toughest feature to implement for this project was the multiplayer support over sockets.
-                        My strategy for distributing game state is to have <span class="green">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
-                        The <span class="green">host player enforces the game's rules</span> by validating messages sent by other players.
-                        Any legal change to the game state causes the host broadcasting updates to each player.
+                        My strategy for distributing game state is to have <span class="note">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.
+                        The <span class="note">host player enforces the game's rules</span> by validating messages sent by other players.
+                        Valid messages are interpreted by the host and the updated game state is broadcast to the other players.
                         <br><br>
-                        I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.
+                        I implemented my messages using a Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.
                         The receiver deserializes the message to the proper class using header information and runs the command.
                         All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
-                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally
+                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
                     </p>
                 </div>
 
