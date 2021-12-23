@@ -39,6 +39,8 @@ nav {
     background-color: black;
     padding: 10px;
     font-size: 16px;
+    font-family: menlo, monospace;
+    font-weight: 500;
     text-align: center;
     border-left: 5px solid #b7b7b7;
     border-right: 5px solid #b7b7b7;
@@ -104,48 +106,48 @@ footer {
 }
 
 a {
-    font-size: 16px;
-    font-family: menlo, monospace;
-    font-weight: 500;
+    /*font-size: 16px;*/
+    /*font-family: menlo, monospace;*/
+    /*font-weight: 500;*/
 }
 
-nav a:link {
+a:link {
     color: #29ff6d;
 }
 
-nav a:visited {
-    color: #29ff6d;
+a:visited {
+    color: #ff6cf0;
 }
 
-nav a:hover {
+a:hover {
     color: #fffb00;
 }
 
-nav a:active {
-    color: #2658ff;
+a:active {
+    color: #ff6cf0;
 }
 
-a.general_link  {
-    font-size: 14px;
-    font-family: menlo, monospace;
-}
+/*a.general_link  {*/
+/*    font-size: 14px;*/
+/*    font-family: menlo, monospace;*/
+/*}*/
 
-a.general_link:link {
-    color: #fff500;
-}
+/*a.general_link:link {*/
+/*    color: #fff500;*/
+/*}*/
 
-a.general_link:visited {
-    color: #fff500;
-}
+/*a.general_link:visited {*/
+/*    color: #fff500;*/
+/*}*/
 
-a.general_link:hover {
-    background-color: #000c9b;
-    color: white;
-}
+/*a.general_link:hover {*/
+/*    background-color: #000c9b;*/
+/*    color: white;*/
+/*}*/
 
-a.general_link:active {
-    color: #2658ff;
-}
+/*a.general_link:active {*/
+/*    color: #2658ff;*/
+/*}*/
 
 .note {
     color: #ffc46c;
