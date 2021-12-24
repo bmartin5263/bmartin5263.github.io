@@ -1,113 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
-    
         <meta charset="utf-8">
         <title> Code Projects </title>
-        
         <link rel="stylesheet" href="style/styles.css">
         <link rel="stylesheet" type="text/css" href="resources/lightbox.css">
-
     </head>
     <body>
-        
         <div id="container">
-        
-            <header>
-                C:\Brandon\Software-Projects
-            </header>
-            
+            <header>C:\Brandon\Software-Projects</header>
             <nav>
-                <a href="index.html">About Me</a>
-                &nbsp;&nbsp;&nbsp;
-                <a class="nav_button" href="resources/resume.pdf" download="Brandon Martin Resume">Resume</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="projects.html">Software Projects</a>
-                &nbsp;&nbsp;&nbsp;
-                <a href="videos.html">Video Projects</a>
-                &nbsp;&nbsp;&nbsp;
+                <a href="index.html">About Me</a>&nbsp;
+                <a class="nav_button" href="resources/resume.pdf" download="Brandon Martin Resume">Resume</a>&nbsp;
+                <a href="projects.html">Software Projects</a>&nbsp;
+                <a href="videos.html">Video Projects</a>&nbsp;
                 <a class="nav_button" href="mailto:bsm2112@yahoo.com">Contact</a>
             </nav>
-
             <article>
-                
-                <div id="uno" class="header">
-                    Uno (C++)
-                </div>
+                <div id="uno" class="header">Uno (C++)</div>
                 <div class="project">
                     <p>
                         <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Gameplay"></a>
-                        <span class="note">A text-based recreation of Mattel's card game with 4-player online multiplayer over sockets.</span>
-                        Written in C++ and built using a custom text-based game engine.
-                        My goal with this project was to put my engine Cursen to the test by creating an actual game using it.
-                        I also wanted to make a game with multiplayer support over sockets as well as supporting local single-player against a computer AI.
+                        A text-based recreation of Mattel's card game written in C++ and built using my custom text-based game engine Cursen.
+                        <span class="note">Uno features text-based graphics with fluent animations, non-blocking IO, and 4-player online multiplayer.</span>
+                        I developed this game in parallel with its engine, <a href="#cursen">Cursen</a> which handles the event loop for the game and rendering the text graphics.
+                        My goal with this project was to create a game with my custom-built UI framework that also included multiplayer over sockets.
                         <br><br>
-                        The toughest feature to implement for this project was the multiplayer support over sockets.
-                        <span class="note">My strategy for distributing game state is to have one player act as the host</span> who holds the authoritative game state and other players connect to that host.
-                        The host player enforces the game's rules by validating that messages sent by other players are legal game actions.
-                        <span class="note">Valid messages are interpreted by the host and the updated game state is broadcast to the other players.</span>
+                        The first step in developing the game was building the UI screens, which included the Lobby where players connect and the Match screen where the actual game happens.
+                        <span class="note">In Cursen I implemented a State Pettern to handle transisition between forms, specifically a stack-of-states where each new Form is stacked onto the previous one.</span>
+                        Cursen allowed me to define each UI element as a subclass of its <code>Component</code> class and attach callbacks when that element is interacted with.
+                        <br><br>
+                        To handle multiple game modes while reusing core UI elements <span class="note">I used a Strategy Pattern by defining a <code>Controller</code> abstract class in which different game mode subclasses could implement.</span>
+                        These Controllers override various abstract methods that ultimately change the interface, controls, and game flow.
                     </p>
-                    <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Lobby"></a>
+                    <br><br>
                     <p>
-                        I implemented my messages using a Command Pattern, where <span class="note">each possible message is defined as a class that can be serialized and sent over a socket.</span>
+                        <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Lobby"></a>
+                        Implementing the multiplayer support was the greatest challenge in completing the game.
+                        <span class="note">My strategy for connecting players and synchronizing game state was to have one player act as the host who holds the authoritative game state and other players connect to that host.</span>
+                        The host player enforces the game's rules by validating that messages sent by other players are legal game actions and applying them to the game state.
+                        <span class="note">Connecting players simply update their game states whenever the host sends a new one and render animations based on game events.</span>
+                        <br><br>
+                        I implemented my messaging system using a Command Pattern, where <span class="note">each possible message is defined as a class that can be serialized and sent over a socket.</span>
                         The receiver deserializes the message to the proper class using header information and runs the command.
-                        <span class="note">All changes to the game state get translated into messages that are forwarded to a command queue for distribution.</span>
+                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
                         Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
                     </p>
                 </div>
-
-                <div id="rosetta" class="header">
-                    Rosetta (Java + Kotlin)
-                </div>
+                <div id="rosetta" class="header">Rosetta (Java + Kotlin)</div>
                 <div class="project">
-                    <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 500px; padding-right: 10px; padding-top: 10px"></a>
                     <p>
+                        <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 480px; padding-right: 10px; padding-bottom: 4px"></a>
                         <span class="note">Prototype rules engine and domain-specific language developed at CNA to automate the generation of our business rules documentation.</span>
-                        Developed as a possible solution to the business problem of having to manually maintain an Excel spreadsheet with hundreds of rows documenting our code's rules.
-                        My goal with this project was to <span class="note">develop a system where our team can write business rules in a CNA-specific DSL that can also be interpreted and documented at runtime.</span>
-                        Our documentation spreadsheet gets generated at runtime using all the written DSL rules, so it will always be in sync with the actual code.
+                        The project was born from a business request to explore ideas on how to automate the generation of our rules documentation, which at the time was a manually-maintained <span class="note">300+ row Excel spreadsheet.</span>
+                        During our regular development, business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync and confusing clients.
+                        I presented a small proof-of-concept to the business that I developed over a couple sprints and was given the reigns to explore my idea further over the next six months.
+                        My goal with this prototype was to <span class="note">develop a system where our team can write business rules in a CNA-specific DSL that can be interpreted at runtime to validate incoming JSON payloads and automatically generate our Excel spreadsheet documentation.</span>
                         <br><br>
-                        This was my most challenging project to date as I was the only resource available to explore this solution and it required me to learn new software development skills.
-                        <span class="note">A notable challenge was developing the frontend DSL that could be expressive enough handle many different validation scenarios while being intuitive to use so new developers can pick it up easily.</span>
+                        I started my development by breaking down the overall project into three modules: the frontend, intermediate, and backend layers.
+                        This was the advice I took from a book on writing compilers, where my frontend will handle the parsing the language into an AST and the backend would handle interpreting the AST.
+                        The intermediate layer contains the AST classes.
+                        <br><br>
+                        <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 480px; padding-right: 10px"></a>
+                        <span class="note">A notable challenge was developing a frontend DSL that could be expressive enough handle many different validation scenarios while being intuitive to use so new developers can pick it up easily.</span>
                         It was a constant tug-of-war and required repeated experimentation and feedback from peers to get right.
                         I ended up choosing Kotlin to create an embedded DSL using its DSL building features which made it possible to leverage our IDEs autocomplete features and type safety when writing rules.
                     </p>
-                    <a href="images/draw.png" data-lightbox="draw"><img src="images/draw.png" style="float: left; width: 870px; padding-bottom: 10px;"></a>
                     <p>
+                        <a href="images/draw.png" data-lightbox="draw"><img src="images/draw.png" style="float: left; width: 870px; padding-bottom: 10px;"></a>
                         At runtime, the DSL is translated to an in-memory AST that represents the business logic.
                         <span class="note">I used a Visitor pattern to develop an Interpreter and Documentor which would traverse the tree structure to either execute the rules on a JSON request or produce documentation.</span>
                         The Interpreter would handle testing the request generating helpful error messages while the Documentor could output the logic as an Excel spreadsheet or JSON for web consumption.
                     </p>
-                    <a href="images/rosetta-2.png" data-lightbox="rosetta-2"><img src="images/rosetta-2.png" style="float: left; width: 550px; padding-right: 10px"></a>
                     <p>
+                        <a href="images/lens-example.png" data-lightbox="lens-example"><img src="images/lens-example.png" style="float: right; width: 450px; padding-left: 10px"></a>
                         Properties in the request JSON were specified using <a href="https://medium.com/javascript-scene/lenses-b85976cb0534">Lenses</a> provided by my custom-built Kotlin lens library.
-                        Lenses are defined as a series of getters that are used traverse the request object tree while protecting against null pointers and generating a JSON path from class metadata.
+                        <span class="note">Lenses are a composed series of setters & getters that are used traverse the request object tree while protecting against null pointers and generating a JSON path from class metadata.</span>
                         This allowed the DSL writers to not need to worry about figuring out JSON paths or checking for nulls, the lenses handle it automatically.
+                        Check out the example pseudo-Kotlin code to see how it works in practice.
                     </p>
-                    <br><br>
                     <div>Rosetta icon made by <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 </div>
-
-<!--                <div class="header">-->
-<!--                    Cursen (C++)-->
-<!--                </div>-->
-<!--                <div class="project">-->
-<!--                    <p>-->
-<!--                        <img src="images/uno.png" style="float: right; width: 400px; padding-left: 10px;">-->
-<!--                        A text-based user interface framework written in C++ that can be used to create games and user interfaces with text graphics-->
-<!--                        <br><br>-->
-<!--                        The toughest feature to implement for this project was the multiplayer support over sockets.-->
-<!--                        My strategy for distributing game state is to have <span class="green">one player act as the host</span>  who holds the authoritative game state and other players connect to that host.-->
-<!--                        The <span class="green">host player enforces the game's rules</span> by validating messages sent by other players.-->
-<!--                        Any legal change to the game state causes the host broadcasting updates to each player.-->
-<!--                        <br><br>-->
-<!--                        I implemented my messages using the Command Pattern, where each possible message is defined as a class that can be serialized and sent over a socket.-->
-<!--                        The receiver deserializes the message to the proper class using header information and runs the command.-->
-<!--                        All changes to the game state get translated into messages that are forwarded to a command queue for distribution.-->
-<!--                        Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally-->
-<!--                    </p>-->
-<!--                </div>-->
+                <div id="cursen" class="header">Cursen (C++)</div>
+                <div class="project">
+                    <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: left; width: 400px; padding-right: 10px; padding-top: 10px" alt="Uno Gameplay"></a>
+                    <p>
+                        <span class="note">A text-based user interface framework written in C++ that can be used to create games and applications with text graphics.</span>
+                        The name Cursen comes from "curses engine" as this project was conceived as a game engine that uses the <a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library to render text graphics in the terminal.
+                        My goal was to construct a solid user interface framework that I could then use create other text-based applications, such as <a href="#uno">Uno</a>.
+                        <br><br>
+                        The overall design was inspired by WinForms in the way <code>Components</code> are organized within <code>Forms</code>.
+                        Cursen maintains a stack of Forms, each with their own state, and framework users structure their programs as Forms that open other Forms, placing them onto the stack.
+                    </p>
+                    <p>
+                        User interface elements inherit from a <code>Component</code> abstract base class and each is responsible for defining how it is rendered onto the terminal screen.
+                        <span class="note"><code>Components</code> contain attributes such as position on screen, dimensions, and use a 2D <code>chtype</code> array to store the character data associated with rendering itself.</span>
+                        Cursen provides a few common UI controls builtin such as <code>Labels</code>, <code>TextBoxes</code>, and <code>CheckBoxes</code> that can be composed together to create other components.
+                    </p>
+                    <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: left; width: 400px; padding-right: 10px;" alt="Uno Gameplay"></a>
+                    <p>
+                        <span class="note">An <code>EventManager</code> handles dispatching application events to registered <code>Components</code> that occur in Cursen's event loop.</span>
+                        During runtime, events such as key presses and timer expirations are placed onto an <code>EventQueue</code> to be processed.
+                        I used an Observer Pattern to handle how Components register themselves for callbacks, where events are observed by Components.
+                    </p>
+                </div>
 
 <!--                <div class="header">-->
 <!--                    Puzzle Solver (Java)-->
@@ -129,9 +125,7 @@
 <!--                    </p>-->
 <!--                </div>-->
 <!--                -->
-                <div class="header">
-                    Flash Cards (C++)
-                </div>
+                <div class="header">Flash Cards (C++)</div>
                 <div class="project">
                     <a href="images/flash_card.png" data-lightbox="flash_card"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
                     <p>
@@ -152,13 +146,10 @@
                         <br><br>
                         This was my largest text-based application at the time, with multiple screens, saved data, various visual components, user input, etc.
                         During this time I still lacked experience in software design patterns for user interfaces, especially for text-based ones so the code is a bit rough around the edges.
-                        However, <span class="note">this experience inspired me to later create a text-based UI framework called Cursen to assist me in making future text games</span>.
+                        However, <span class="note">this experience inspired me to later create a text-based UI framework called <a href="#cursen">Cursen</a> to assist me in making future text games</span>.
                     </p>
                 </div>
-
-                <div class="header">
-                    Tetris (Python)
-                </div>
+                <div class="header">Tetris (Python)</div>
                 <div class="project">
                     <p>
                         <img src="images/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
@@ -174,17 +165,9 @@
                         I also experimented with Python's threading module in order to make the tetris piece automatically fall when the user waits long enough. 
                     </p>
                 </div>
-                
-            
             </article>
-            
-            <footer>
-                Copyright 2019-2021 by Brandon Martin. All Rights Reserved.
-            </footer>
-        
+            <footer>Copyright 2019-2021 by Brandon Martin. All Rights Reserved.</footer>
         </div>
-
         <script type="text/javascript" src="resources/lightbox-plus-jquery.js"></script>
     </body>
-
 </html>

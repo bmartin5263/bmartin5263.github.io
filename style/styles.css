@@ -21,6 +21,10 @@ p {
     color: #eaeaea;
 }
 
+code {
+    font-weight: normal;
+}
+
 header {
     position: static;
     box-sizing: border-box;
