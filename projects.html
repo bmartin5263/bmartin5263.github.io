@@ -21,13 +21,14 @@
                 <div class="project">
                     <p>
                         <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Gameplay"></a>
-                        A text-based recreation of Mattel's card game written in C++ and built using my custom text-based game engine Cursen.
+                        A text-based recreation of Mattel's card game written in C++ and built using my custom text-based game engine <a href="#cursen">Cursen</a>.
                         <span class="note">Uno features text-based graphics with fluent animations, non-blocking IO, and 4-player online multiplayer.</span>
-                        I developed this game in parallel with its engine, <a href="#cursen">Cursen</a> which handles the event loop for the game and rendering the text graphics.
+                        I developed this game in parallel with its engine, which handles the event loop for the game and rendering the text graphics.
                         My goal with this project was to create a game with my custom-built UI framework that also included multiplayer over sockets.
                         <br><br>
                         The first step in developing the game was building the UI screens, which included the Lobby where players connect and the Match screen where the actual game happens.
                         <span class="note">In Cursen I implemented a State Pettern to handle transisition between forms, specifically a stack-of-states where each new Form is stacked onto the previous one.</span>
+                        This easily allowed me to transition from the Lobby screen to the Match screen and then back with original Lobby state restored.
                         Cursen allowed me to define each UI element as a subclass of its <code>Component</code> class and attach callbacks when that element is interacted with.
                         <br><br>
                         To handle multiple game modes while reusing core UI elements <span class="note">I used a Strategy Pattern by defining a <code>Controller</code> abstract class in which different game mode subclasses could implement.</span>
@@ -50,7 +51,7 @@
                 <div id="rosetta" class="header">Rosetta (Java + Kotlin)</div>
                 <div class="project">
                     <p>
-                        <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 480px; padding-right: 10px; padding-bottom: 4px"></a>
+                        <a href="images/dsl-example.png" data-lightbox="dsl-example"><img src="images/dsl-example.png" style="float: left; width: 480px; padding-right: 10px; padding-bottom: 4px"></a>
                         <span class="note">Prototype rules engine and domain-specific language developed at CNA to automate the generation of our business rules documentation.</span>
                         The project was born from a business request to explore ideas on how to automate the generation of our rules documentation, which at the time was a manually-maintained <span class="note">300+ row Excel spreadsheet.</span>
                         During our regular development, business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync and confusing clients.
@@ -153,14 +154,12 @@
                 <div class="project">
                     <p>
                         <img src="images/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;">
-                        Recreation of the classic Tetris game with text-based graphics.
-                        Created during my Junior year at DePaul University, my goals with this project was to experiment with the curses module and threading to create a text-based non turn-based game that deals with user-input concurrently with computer input.
-                        Written in Python 3.
+                        Recreation of the classic Tetris game with text-based graphics written in Python 3.
+                        Created during my Junior year at DePaul University, my goal with this project was to experiment with the curses module and threading to create a text-based realtime game that deals with user-input concurrently with computer input.
                         <br><br>
-                        This project was my first attempt at making a Real-time game, as opposed to turn based games like Chess and Uno.
-                        In order to do this, I needed a way of getting individual key presses and update the screen constantly.
-                        I learned about the NCurses module which solved both of those problems.
-                        Now I was able to receive input from the user without needing them to keep pressing enter and the screen wouldn't have to reprint itself in the terminal every update.
+                        This project was my first attempt at making a realtime game, previously I've only worked on turn-based games like Chess and Uno.
+                        In order to make my game realtime I needed a way of getting individual key presses without blocking the event loop and a way to update the screen continuously.
+                        I ended up learned about the ncurses Python library which solved both of these problems and gave me a solid text graphics foundation.
                         <br><br>
                         I also experimented with Python's threading module in order to make the tetris piece automatically fall when the user waits long enough. 
                     </p>
