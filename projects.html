@@ -28,7 +28,7 @@
                         My goal with this project was to create a game with my custom-built UI framework that also included multiplayer over sockets.
                         <br><br>
                         The first step in developing the game was building the UI screens, which included the Lobby where players connect and the Match screen where the actual game happens.
-                        <span class="note">In Cursen I implemented a State Pettern to handle transisition between forms, specifically a stack-of-states where each new Form is stacked onto the previous one.</span>
+                        <span class="note">In Cursen I implemented a State Pattern to handle transition between forms, specifically a stack-of-states where each new Form is stacked onto the previous one.</span>
                         This easily allowed me to transition from the Lobby screen to the Match screen and then back with original Lobby state restored.
                         Cursen allowed me to define each UI element as a subclass of its <code>Component</code> class and attach callbacks when that element is interacted with.
                         <br><br>
@@ -46,45 +46,64 @@
                         The receiver deserializes the message to the proper class using header information and runs the command.
                         All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
                         Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
+<!--                        <video src="images/uno.mp4" width="400" loop autoplay muted playsinline style="float: right; padding-left: 10px;"></video>-->
                     </p>
                 </div>
                 <div id="rosetta" class="header">Rosetta (Java + Kotlin)</div>
                 <div class="project">
                     <p>
                         <a href="images/dsl-example.png" data-lightbox="dsl-example"><img src="images/dsl-example.png" style="float: left; width: 480px; padding-right: 10px; padding-bottom: 4px"></a>
-                        <span class="note">Prototype rules engine and embedded domain-specific language developed at CNA to automate the generation of our business rules documentation.</span>
-                        The project was born from a request from the business to explore ideas on how to automate the generation of our rules documentation, which at the time was a manually-maintained <span class="note">300+ row Excel spreadsheet.</span>
-                        During our regular development, business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync and confusing clients.
-                        I presented a small proof-of-concept to the business that I developed over a couple sprints and was given the reigns to explore my idea further over the next six months.
+                        <span class="note">Prototype rules engine and embedded domain-specific language developed at CNA that can generate human-readable documentation from coded business rules.</span>
+                        The project was born from a request from the business to explore ideas on how to automate our rules documentation, which at the time was a manually-maintained <span class="note">300+ row Excel spreadsheet.</span>
+                        Our business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync with the code and confusing readers.
+                        I presented a small proof-of-concept to the business and was given the reigns to explore my idea further over the next six months.
                         My goal with this prototype was to <span class="note">develop a system where our team can write business rules in a CNA-specific DSL that can be interpreted at runtime to validate incoming JSON payloads and automatically generate our Excel spreadsheet documentation.</span>
                         <br><br>
-                        I started my development by breaking down the overall project into three modules: the frontend, intermediate, and backend layers.
+                        <span class="note">I started my development by breaking down the overall project into three modules: the frontend, intermediate, and backend layers.</span>
                         This was the advice I took from a book on writing compilers, where my frontend will handle the parsing the language into an AST and the backend would handle interpreting the AST.
                         The intermediate layer contains the AST classes.
-                        <br><br>
-                        <a href="images/rosetta-1.png" data-lightbox="rosetta-1"><img src="images/rosetta-1.png" style="float: left; width: 480px; padding-right: 10px"></a>
-                        <span class="note">A notable challenge was developing a frontend DSL that could be expressive enough handle many validation scenarios while being intuitive enough so new developers can pick it up easily.</span>
-                        It was a constant tug-of-war and required repeated experimentation and feedback from peers to get right.
-                        I ended up choosing Kotlin to create an embedded DSL using its DSL building features which made it possible to leverage our IDEs autocomplete features and type safety when writing rules.
+                        When our application starts up, Rosetta will look for scripts and parse them into ASTs that can be further processed by the backend services.
                     </p>
-                    <p>
                         <a href="images/rosetta-lifecycle.png" data-lightbox="rosetta-lifecycle"><img src="images/rosetta-lifecycle.png" style="float: left; width: 870px; padding-bottom: 10px;"></a>
-                        At runtime, the DSL is translated to an in-memory AST that represents the business logic.
-                        <span class="note">I used a Visitor pattern to develop an Interpreter and Documentor which would traverse the tree structure to either execute the rules on a JSON request or produce documentation.</span>
-                        The Interpreter would handle testing the request generating helpful error messages while the Documentor could output the logic as an Excel spreadsheet or JSON for web consumption.
+                    <p>
+                        <span class="note">A notable challenge in developing the frontend module was designing a DSL that could be expressive enough handle many validation scenarios while being intuitive enough so developers can pick it up easily.</span>
+                        It was imperative that the DSL be easy to understand so it was a constant tug-of-war which required repeated experimentation and feedback from peers to get right.
+                        I ended up choosing Kotlin to create an embedded DSL using its DSL building features which made it possible to leverage our IDEs autocomplete features and type safety when writing rules.
                     </p>
                     <p>
                         <a href="images/lens-example.png" data-lightbox="lens-example"><img src="images/lens-example.png" style="float: right; width: 450px; padding-left: 10px"></a>
                         Properties in the request JSON were specified using <a href="https://medium.com/javascript-scene/lenses-b85976cb0534">Lenses</a> provided by my custom-built Kotlin lens library.
-                        <span class="note">Lenses are a composed series of setters & getters that are used traverse the request object tree while protecting against null pointers and generating a JSON path from class metadata.</span>
-                        This allowed the DSL writers to not need to worry about figuring out JSON paths or checking for nulls, the lenses handle it automatically.
+                        <span class="note">Lenses are a series of setters & getters that are used traverse the request object tree while protecting against null pointer exceptions and generating a JSON path from class metadata.</span>
+                        This allowed the DSL writers to free themselves from the burden of crafting JSON paths or checking for null pointers, the lenses handle it automatically and the resulting scripts are clearer.
+                        <br><br>
+                        My lens library makes use of reflection and Kotlin's reified inline functions to <span class="note">automatically determine from a setter or getter what the underlying field is to generate an object path.</span>
                         Check out the example pseudo-Kotlin code to see how it works in practice.
+                    </p>
+                    <p>
+                        At runtime, the DSL is translated to an in-memory AST that represents the business logic.
+                        <span class="note">I used a Visitor pattern to develop an Interpreter and Documentor which would traverse the tree structure to either execute the rules on a JSON request or produce documentation.</span>
+                        The Interpreter would handle testing the request generating helpful error messages while the Documentor could output the logic as an Excel spreadsheet or JSON for web consumption.
                     </p>
                     <div>Rosetta icon made by <a href="https://www.flaticon.com/authors/icongeek26" title="Icongeek26">Icongeek26</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                 </div>
+                <div id="spaceinvaders" class="header">Space Invaders (C#)</div>
+                <div class="project">
+                    <p>
+                        <span class="note">A port of Midway's Space Invaders written with C# without the use of generics, builtin containers, or other advanced features.</span>
+                        Developed as a class project in a class of Software Architecture over a 10-week period as a pedagogical exercise in learning about software design patterns.
+                        Students received a minimal game engine to kickstart their development that was able to draw a 2D sprite and play a sound, the rest of the game was up to us.
+                        The goal of the class was to not just rewrite Space Invaders but to do so with solid architectural principals that we would learn about throughout the course.
+                    </p>
+                    <p>
+                        One of the concerns with using a managed language like C# when building a realtime game are pauses caused by garbage collection.
+                        To mitigate this, <span class="note">Object Pools were utilized that were pre-allocated with game objects and would hold onto released objects in an internal <code>Linked List</code>.</span>
+                        This helped prevent the garbage collector from trying to reclaim memory and led to a smoother gameplay experience.
+                        I wrote an <code>ObjectPool</code> abstract base class that would manage the lists of free and allocated objects and subclasses would implement how specific objects are allocated.
+                    </p>
+                </div>
                 <div id="cursen" class="header">Cursen (C++)</div>
                 <div class="project">
-                    <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: left; width: 400px; padding-right: 10px; padding-top: 10px" alt="Uno Gameplay"></a>
+<!--                    <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: left; width: 400px; padding-right: 10px; padding-top: 10px" alt="Uno Gameplay"></a>-->
                     <p>
                         <span class="note">A text-based user interface framework written in C++ that can be used to create games and applications with text graphics.</span>
                         The name Cursen comes from "curses engine" as this project was conceived as a game engine that uses the <a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library to render text graphics in the terminal.
@@ -98,7 +117,7 @@
                         <span class="note"><code>Components</code> contain attributes such as position on screen, dimensions, and use a 2D <code>chtype</code> array to store the character data associated with rendering itself.</span>
                         Cursen provides a few common UI controls builtin such as <code>Labels</code>, <code>TextBoxes</code>, and <code>CheckBoxes</code> that can be composed together to create other components.
                     </p>
-                    <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: left; width: 400px; padding-right: 10px;" alt="Uno Gameplay"></a>
+<!--                    <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: left; width: 400px; padding-right: 10px;" alt="Uno Gameplay"></a>-->
                     <p>
                         <span class="note">An <code>EventManager</code> handles dispatching application events to registered <code>Components</code> that occur in Cursen's event loop.</span>
                         At runtime, events such as key presses and timer expirations are placed onto an <code>EventQueue</code> to be processed.
