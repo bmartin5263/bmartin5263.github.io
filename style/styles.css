@@ -173,7 +173,7 @@ input {
     background-color: black;
     color: white;
     padding: 4px;
-    font-family: avenir;
+    font-family: avenir, "Lato", sans-serif;
 }
 
 textarea {
@@ -182,7 +182,7 @@ textarea {
     background-color: black;
     color: white;
     padding: 4px;
-    font-family: avenir;
+    font-family: avenir, "Lato", sans-serif;
 }
 
 #inputTable {
