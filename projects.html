@@ -21,34 +21,35 @@
                 <div id="uno" class="header">Uno (C++)</div>
                 <div class="project">
                     <p>
-                        <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Gameplay"></a>
+                        <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: left; width: 400px; padding-right: 10px;" alt="Uno Gameplay"></a>
                         A text-based recreation of Mattel's card game written in C++ and built using my custom text-based game engine <a href="#cursen">Cursen</a>.
                         <span class="note">Uno features text-based graphics with fluent animations, non-blocking IO, and 4-player online multiplayer.</span>
                         I developed this game in parallel with its engine, which handles the event loop for the game and rendering the text graphics.
-                        My goal with this project was to create a game with my custom-built UI framework that also included multiplayer over sockets.
+                        Check out it's project section to learn more about how Cursen handles those tasks.
                     </p>
                     <p>
-                        The first step in developing the game was building the UI screens, which included the Lobby where players connect and the Match screen where the actual game happens.
-                        <span class="note">In Cursen I implemented a State Pattern to handle transition between forms, specifically a stack-of-states where each new Form is stacked onto the previous one.</span>
-                        This easily allowed me to transition from the Lobby screen to the Match screen and then back with original Lobby state restored.
-                        Cursen allowed me to define each UI element as a subclass of its <code>Component</code> class and attach callbacks when that element is interacted with.
+                        My process for developing this game was to first create a Lobby screen where players connect together, chat, and change their game color, and then work on the Match screen where the actual gameplay occurs.
+                        I first got the simpler Lobby screen working with networking where the toughest challenge was connecting players to the host, then I moved on to the Match screen where the challenge was orchestrating the various game state messages.
+                        To handle multiple game modes while reusing core UI elements <span class="note">I used a Strategy Pattern by defining a <code>Controller</code> abstract base class in which different game mode subclasses could implement.</span>
+                        These Controllers override various abstract methods that change the interface, controls, and game flow based on the game mode selected at the start.
+                        I also used a State Pattern to block user input during event scenes and animations whereby changing the input state was as simple as changing a pointer.
                     </p>
                     <p>
-                        To handle multiple game modes while reusing core UI elements <span class="note">I used a Strategy Pattern by defining a <code>Controller</code> abstract class in which different game mode subclasses could implement.</span>
-                        These Controllers override various abstract methods that change the interface, controls, and game flow.
+                        Implementing the multiplayer support was the greatest challenge in developing the game.
+                        Synchronizing the game state with multiple computers over plain sockets required me to define protocols for my program in how communication would occur and what form the messages would take.
+                        <span class="note">My strategy for connecting players together was to have one player act as the host player who holds the authoritative game state and all changes to the game state go through them.</span>
+                        Other players would then connect to the host player's IP address from the game lobby.
+                        The host player enforces the game's rules by validating that messages sent by other players are legal game actions and applying them to the game state.
+                        <span class="note">Connecting players simply update their game states whenever the host sends a new one and render animations based on game events.</span>
                     </p>
                     <p>
                         <a href="images/uno-1.png" data-lightbox="uno-1"><img src="images/uno-1.png" style="float: right; width: 400px; padding-left: 10px;" alt="Uno Lobby"></a>
-                        Implementing the multiplayer support was the greatest challenge in completing the game.
-                        <span class="note">My strategy for connecting players and synchronizing game state was to have one player act as the host who holds the authoritative game state and other players connect to that host.</span>
-                        The host player enforces the game's rules by validating that messages sent by other players are legal game actions and applying them to the game state.
-                        <span class="note">Connecting players simply update their game states whenever the host sends a new one and render animations based on game events.</span>
-                        <br><br>
-                        I implemented my messaging system using a Command Pattern, where <span class="note">each possible message is defined as a class that can be serialized and sent over a socket.</span>
-                        The receiver deserializes the message to the proper class using header information and runs the command.
+                        I implemented my messaging system using a Command Pattern, where <span class="note">each possible message is defined as a subclass of an abstract <code>Command</code> base class and would fill in the details of what to do when executed and how to be serialized.</span>
+                        Once the <code>Command</code> is serialized, additional header information is written that tells the receiver which command type it is as well as how many bytes the message is.
+                        The receiver first checks how big the message is and continues reading until it consumed n-many bytes.
+                        The receiver then checks the header of the message for a byte representing which class to deserialize the raw buffer to, deserializes the buffer, and executes the command.
                         All changes to the game state get translated into messages that are forwarded to a command queue for distribution.
                         Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
-<!--                        <video src="images/uno.mp4" width="400" loop autoplay muted playsinline style="float: right; padding-left: 10px;"></video>-->
                     </p>
                 </div>
                 <div id="rosetta" class="header">Rosetta (Java + Kotlin)</div>
@@ -60,7 +61,8 @@
                         Our business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync with the code and confusing readers.
                         I presented a small proof-of-concept to the business and was given the reigns to explore my idea further over the next six months.
                         My goal with this prototype was to <span class="note">develop a system where our team can write business rules in a CNA-specific DSL that can be interpreted at runtime to validate incoming JSON payloads and automatically generate our Excel spreadsheet documentation.</span>
-                        <br><br>
+                    </p>
+                    <p>
                         <span class="note">I started my development by breaking down the overall project into three modules: the frontend, intermediate, and backend layers.</span>
                         This was the advice I took from a book on writing compilers, where my frontend will handle the parsing the language into an AST and the backend would handle interpreting the AST.
                         The intermediate layer contains the AST classes.
@@ -97,7 +99,7 @@
                         The goal of the class was to not just rewrite Space Invaders but to do so with solid architectural principals that we would learn about throughout the course.
                     </p>
                     <p>
-                        One of the concerns with using a managed language like C# when building a realtime game are pauses caused by garbage collection.
+                        One of the concerns with using a managed language like C# when building a real-time game are pauses caused by garbage collection.
                         To mitigate this, <span class="note">Object Pools were utilized that were pre-allocated with game objects and would hold onto released objects in an internal <code>Linked List</code>.</span>
                         This helped prevent the garbage collector from trying to reclaim memory and led to a smoother gameplay experience.
                         I wrote an <code>ObjectPool</code> abstract base class that would manage the lists of free and allocated objects and subclasses would implement how specific objects are allocated.
@@ -107,12 +109,15 @@
                 <div class="project">
 <!--                    <a href="images/uno-2.png" data-lightbox="uno-2"><img src="images/uno-2.png" style="float: left; width: 400px; padding-right: 10px; padding-top: 10px" alt="Uno Gameplay"></a>-->
                     <p>
-                        <span class="note">A text user interface (TUI) framework developed for C++ that can be used to create games and applications with text-based graphics.</span>
+                        <span class="note">A text-based user interface <a href="https://en.wikipedia.org/wiki/Text-based_user_interface">(TUI)</a> framework developed for C++ that can be used to create games and applications with text-based graphics.</span>
                         The name Cursen comes from "curses engine" as this project was conceived as a game engine that uses the <a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library to render text graphics in the terminal.
-                        My goal was to construct a solid user interface framework that I could then use create other text-based applications, such as <a href="#uno">Uno</a>.
-                        <br><br>
-                        I took some inspiration from WinForms in the way <code>Components</code> are organized within <code>Forms</code>.
-                        Cursen maintains a stack of Forms, each with their own state, and framework users structure their programs as Forms that open other Forms, placing them onto the stack.
+                        My goal was to construct a solid user interface framework that provided all the common functionalities I needed for writing text games and then use it to create other text-based applications, such as <a href="#uno">Uno</a>.
+                        I also wanted to try and build a medium-scale application where I can apply many of the concepts I learned about during my senior year, like software design patterns and networking.
+                    </p>
+                    <p>
+                        The overall layout of Cursen was inspired by WinForms, such as how Cursen's UI <code>Component</code> objects are arranged within <code>Form</code> objects.
+                        Cursen maintains internally a <code>Form</code> stack, with each <code>Form</code> keeping track of things like timer events, callbacks, and which <code>Components</code> to draw.
+                        This design makes it easy for user's to write games and applications with multiple screens that transition from one to the next while maintaining the states of the previous screens.
                     </p>
                     <p>
                         User interface elements inherit from a <code>Component</code> abstract base class and each is responsible for defining how it is rendered onto the terminal screen.
@@ -132,50 +137,53 @@
                 </div>
                 <div class="project">
                     <p>
-                        A small AI framework written in Java that can be used to solve single-agent games using a generic search algorithm with concrete implementations for DFS, BFS, A*, and more.
-                        I developed this program as a challenge to myself during a college Introduction to AI course.
-                        One of our first assignments was to build a solver that can solve just the Eight Puzzle game, but our professor remarked that he used to ask students to implement a solver that can solve arbitrary single-agent puzzeles.
-                        I thought it would be neat to try and build my solution in a generic way so I can reuse much of the search code for different games.
-                        This program implements search algorithms like DFS, BFS, Uniform Cost, A*, and more and provides class interfaces for users to implement their own single-agent puzzles into.
+                        A small AI framework written in Java that can be used to solve single-agent games using a variety of different search algorithms.
+                        The program defines a generic search algorithm that continuously expands puzzle states until it finds the goal state.
+                        Users of the framework implement predefined interfaces that fill in the details of how to compare puzzle states and what actions can be taken for a given state.
+                        I developed this program as a challenge to myself during a college Intro to AI course.
+                        One of our first assignments was to build a solver that can solve just the <a href="https://www.geeksforgeeks.org/check-instance-8-puzzle-solvable/">Eight Puzzle game</a>, but I thought it would be neat to try and build my solution in a generic way, so I can reuse much of the search code for different games.
                     </p>
                         <a href="images/puzzlesolver.png" data-lightbox="puzzlesolver"><img src="images/puzzlesolver.png" style="float: left; width: 870px; padding-bottom: 10px;" alt="Rosetta Lifecycle Diagram"></a>
                 </div>
 
                 <div class="header">Flash Cards (C++)</div>
                 <div class="project">
-                    <a href="images/flash_card.png" data-lightbox="flash_card"><img src="images/flash_card.png" style="float: left; width: 350px; padding: 10px;" alt="Flashcards"></a>
                     <p>
-                        <span class="note">Text-based C++ program that allows you to create decks of flash cards and quiz yourself.</span>
+                        <a href="images/flash-cards-1.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-1.png" style="float: left; width: 350px; padding-top: 10px; padding-right: 10px;" alt="Flashcards"></a>
+                        <span class="note">Console C++ program that allows you to create decks of flash cards and test yourself with a quiz game.</span>
                         I wrote this program in 2018 after completing my first college C++ course as an exercise to further understand both C and C++.
                         I restricted my use of STL, strings, templates, and other advanced features so that I can also further understand the C language, just with the addition of classes.
-                        <br><br>
+                    </p>
+                    <p>
                         <span class="note">The program uses entirely text-based graphics to represent various UI components</span> and a virtual cursor for the user to navigate the screens.
                         Users can create decks of flash cards where each card has a front and back text as well as test themselves with a quiz mode that shuffles the cards.
                         Decks can be saved to a plain text file and loaded after the application shuts down.
-                    </p>
-                    <br>
-                    <br>
-                    <a href="images/flash-cards-2.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-2.png" style="float: right; width: 400px; padding: 10px;" alt="Flashcards"></a>
-                    <p>
                         Manual memory management was tough when most of my prior experience was in managed languages like Java and this program needed to use a lot of strings.
-                        To help mitigate this <span class="note">I looked for opportunities to use stack memory whenever I knew at compile time how much data I might need</span> and only use heap memory for polymorphism or Linked Lists.
-                        <br><br>
-                        This was my largest text-based application at the time, with multiple screens, saved data, various visual components, user input, etc.
-                        During this time I still lacked experience in software design patterns for user interfaces, especially for text-based ones so the code is a bit rough around the edges.
-                        However, <span class="note">this experience inspired me to later create a text-based UI framework called <a href="#cursen">Cursen</a> to assist me in making future text games</span>.
+                        To help mitigate this <span class="note">I looked for opportunities to use stack memory whenever I knew at compile time how much data I might need</span> and only use heap memory for dynamically-sized arrays or Linked Lists.
                     </p>
+                    <a href="images/flash-cards-2.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-2.png" style="float: left; width: 350px; padding-right: 10px;" alt="Flashcards"></a>
+                    <p>
+                        This was my largest text-based application at the time, with multiple screens, saved data, various visual components, user input, etc.
+                        During this time I still lacked experience in software design patterns for user interfaces, so the code is a bit rough around the edges.
+                        <span class="note">This experience inspired me to later create a text-based UI framework called <a href="#cursen">Cursen</a> to assist me in making future text games</span>.
+                    </p>
+                    <br>
+                    <a href="images/flash-cards-3.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-3.png" style="float: left; width: 170px; padding-right: 10px;" alt="Flashcards"></a>
+                    <a href="images/flash-cards-4.png" data-lightbox="flash-cards-2"><img src="images/flash-cards-4.png" style="float: left; width: 170px; padding-right: 10px;" alt="Flashcards"></a>
                 </div>
                 <div class="header">Tetris (Python)</div>
                 <div class="project">
                     <p>
                         <img src="images/tetris.png" style="float: right; width: 300px; height: 400px; padding-left: 10px;" alt="Tetris Gameplay">
                         A recreation of the classic game Tetris with text-based graphics written in Python 3.
-                        Created during my Junior year at DePaul University, my goal with this project was to experiment with the curses module and threading to create a text-based realtime game that deals with user-input concurrently with computer input.
-                        <br><br>
-                        This project was my first attempt at making a realtime game, previously I've only worked on turn-based games like Chess and Uno.
-                        In order to make my game realtime I needed a way of getting individual key presses without blocking the event loop and a way to update the screen continuously.
+                        Created during my Junior year at DePaul University, my goal with this project was to experiment with the curses module and threading to create a text-based real-time game that deals with user-input concurrently with computer input.
+                    </p>
+                    <p>
+                        This project was my first attempt at making a real-time game, previously I've only worked on turn-based games like Chess and Uno.
+                        In order to make my game real-time I needed a way of getting individual key presses without blocking the event loop and a way to update the screen continuously.
                         I ended up learning about the ncurses Python library which solved both of these problems and gave me a solid text graphics foundation.
-                        <br><br>
+                    </p>
+                    <p>
                         I also experimented with Python's threading module in order to make the tetris piece automatically fall when the user waits long enough. 
                     </p>
                 </div>
