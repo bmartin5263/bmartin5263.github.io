@@ -62,7 +62,7 @@ article {
     box-sizing: border-box;
     border: 5px solid #b7b7b7;
     font-size: 16px;
-    font-family: avenir next;
+    font-family: "Avenir Next", "Lato", sans-serif;
     padding: 10px;
     line-height: 25px;
     /* color: #83ff83; */
@@ -104,7 +104,7 @@ footer {
     color: white;
     text-align: center;
     font-size: 30px;
-    font-family: "Avenir", monospace;
+    font-family: "Avenir Next", "Lato", sans-serif;
     font-weight: 100;
     line-height: 40px;
 }
@@ -173,7 +173,7 @@ input {
     background-color: black;
     color: white;
     padding: 4px;
-    font-family: avenir, "Lato", sans-serif;
+    font-family: "Avenir Next", "Lato", sans-serif;
 }
 
 textarea {
@@ -182,7 +182,7 @@ textarea {
     background-color: black;
     color: white;
     padding: 4px;
-    font-family: avenir, "Lato", sans-serif;
+    font-family: "Avenir Next", "Lato", sans-serif;
 }
 
 #inputTable {
