@@ -52,11 +52,11 @@
                         Depending on the game mode and network role, some messages are looped back to the sender or not sent at all and just executed locally.
                     </p>
                 </div>
-                <div id="rosetta" class="header">Rosetta (Java + Kotlin)</div>
+                <div id="rosetta" class="header">Rosetta DSL (Java + Kotlin)</div>
                 <div class="project">
                     <p>
                         <a href="images/dsl-example.png" data-lightbox="dsl-example"><img src="images/dsl-example.png" style="float: left; width: 480px; padding-right: 10px; padding-bottom: 4px" alt="Sample DSL Code"></a>
-                        <span class="note">Prototype rules engine and embedded domain-specific language developed at CNA that can generate human-readable documentation from coded business rules.</span>
+                        <span class="note">Prototype rules engine and internal domain-specific language (DSL) developed at CNA that can generate human-readable documentation from coded business rules.</span>
                         The project was born from a request from the business to explore ideas on how to automate our rules documentation, which at the time was a manually-maintained <span class="note">300+ row Excel spreadsheet.</span>
                         Our business rules change constantly but the spreadsheet would not always get updated, causing our documentation to drift further and further out of sync with the code and confusing our partners.
                         <span class="note">The way that Rosetta works is that developers write validation and transformation <code>Scripts</code> that define what are acceptable values for <code>Properties</code> incoming JSON requests as well as defaults if a value is missing.</span>
@@ -64,24 +64,25 @@
                     </p>
                     <p>
                         The engine is conceptually broken down into three modules, the frontend, intermediate, and backend modules.
-                        The frontend is what scriptwriters interact with, it consists of the Kotlin classes that define the embedded DSL and how that DSL is transformed into an in-memory AST.
+                        The frontend is what scriptwriters interact with, it consists of the Kotlin classes that define the internal DSL and how that DSL is transformed into an in-memory AST.
                         The backend is what users interact with at runtime, it consists of services that accept the AST as input, notably the <code>Documentor</code> and <code>Interpreter</code>.
                         The <code>Documentor</code> generates tabulated documentation with each row being a JSON property and its rules while the <code>Interpreter</code> executes the rules themselves to generate invalid and missing data messages.
                     </p>
                     <p>
                         <a href="images/rosetta-3.png" data-lightbox="rosetta-3"><img src="images/rosetta-3.png" style="float: left; width: 870px; padding-bottom: 10px;" alt="Rosetta Lifecycle Diagram"></a>
-                        <span class="note">A notable challenge in developing the frontend module was designing a DSL that could be expressive enough handle many validation scenarios while being intuitive enough so developers can pick it up easily.</span>
+                        <span class="note">A notable challenge in designing the DSL was ensuring that the language would be expressive enough handle many validation scenarios while being intuitive enough so developers can pick it up easily.</span>
                         Many features would have been nice to include into the language, but it was often the case that their behavior was too subtle to be expressed fully in the language itself.
                         It was a constant tug-of-war which required repeated experimentation and feedback from peers to get right.
-                        I ended up choosing Kotlin to create an embedded DSL using its DSL building features which made it possible to leverage our IDEs autocomplete features and type safety when writing rules.
                     </p>
                     <p>
                         <a href="images/lens-example.png" data-lightbox="lens-example"><img src="images/lens-example.png" style="float: right; width: 450px; padding-left: 10px" alt="Lens Example Usage Pseudocode"></a>
-                        To give the <code>Scripts</code> the ability to interact with properties in the JSON payload, I developed a <a href="https://medium.com/javascript-scene/lenses-b85976cb0534">Lens</a> library for Kotlin.
-                        <span class="note">Lenses are a series of setters & getters that are used traverse the request POJO object tree while protecting against null pointer exceptions and generating a JSON path from class metadata, such as annotations.</span>
+                        <span class="note">Elements in the JSON payload are interacted with by the DSL using a system of <code>Property</code> classes that define how to extract data from the payload.</span>
+                        Properties themselves come in two flavors, <code>Solo</code> and <code>Poly</code> properties, where <code>Solos</code> always return 1 nullable item while <code>Polys</code> return 0 to many items.
+                        Declaring two separate class hierarchies for data that is either one or many items aided in providing features in the language intended for collection data, like <code>forEach</code>.
+                        <span class="note">I developed a Lens library for Kotlin that lets developers use a fluent interface to define how to extract data from the payload.</span>
+                        <a href="https://medium.com/javascript-scene/lenses-b85976cb0534">Lenses</a> are a series of setters & getters that are used traverse the request POJO object tree while protecting against null pointer exceptions and generating a JSON path from class metadata, such as annotations.
                         My lens library makes use of reflection and Kotlin's reified inline functions to automatically determine from a setter or getter what the underlying field is to generate an object path.
                         This allows the DSL writers to free themselves from the burden of crafting JSON paths or checking for null pointers, the lenses handle it automatically with the added benefit of retaining generic type information.
-                        Properties themselves come in two flavors, <code>Solo</code> and <code>Poly</code> properties, where <code>Solos</code> always return 1 nullable item while <code>Polys</code> return 0 to many items.
                     </p>
                     <p>
                         At runtime, the DSL is translated to an in-memory AST that represents the business logic.
@@ -92,6 +93,7 @@
                 <div id="spaceinvaders" class="header">Space Invaders (C#)</div>
                 <div class="project">
                     <p>
+                        <a href="images/space-invaders-2.png" data-lightbox="space-invaders-2"><img src="images/space-invaders-2.png" style="float: left; width: 400px; padding-right: 10px;" alt="Uno Gameplay"></a>
                         <span class="note">A port of Midway's Space Invaders written with C# without the use of generics, arrays, builtin containers, or other advanced features.</span>
                         Developed as a class project in a class of Software Architecture over a 10-week period as a pedagogical exercise in learning about software design patterns.
                         Students received a minimal game engine to kickstart their development that was able to draw a 2D sprite and play a sound, the rest of the game was up to us.
@@ -105,10 +107,12 @@
                         I wrote an <code>ObjectPool</code> abstract base class that would manage the lists of free and allocated objects and subclasses would implement how specific objects are allocated.
                     </p>
                     <p>
-                        To handle the alien grid efficiently, a combination of patterns were used.
+                        To handle the alien grid efficiently, a combination of patterns were used to help check for collisions and animate the alien sprites
                         A Composite Pattern was used to organize the aliens into a tiered hierarchy from an individual alien at the bottom, to a column of aliens, and then to the entire grid at the top.
                         <span class="note">By organizing the aliens in such a manner I reduced the amount of collision checks by first checking if an upper tier faced a collision before checking lower tiers.</span>
                         Double dispatch was used in a Visitor Pattern to handle checking for collisions between two game objects.
+                        To make changing the 55 alien sprites every time more efficient, I used a Proxy Pattern where each alien sprite is actually a proxy to a real sprite that holds the current image.
+                        Changing the 55 sprites was now just changing image references in 3 proxy sprites, which is faster and uses less memory.
                     </p>
                 </div>
                 <div id="cursen" class="header">Cursen (C++)</div>
