@@ -114,6 +114,13 @@
                         To make changing the 55 alien sprites every time more efficient, I used a Proxy Pattern where each alien sprite is actually a proxy to a real sprite that holds the current image.
                         Changing the 55 sprites was now just changing image references in 3 proxy sprites, which is faster and uses less memory.
                     </p>
+                    <p>
+                        To handle user input I implemented my own spin on the Observer Pattern where events are matched to keys and can be registered to and from a central <code>InputManager</code>.
+                        <code>Scene</code> objects that represents different states we could be in for the game register <code>Key</code> to the <code>InputManager</code> in its <code>enter()</code> and deregister during <code>leave()</code>.
+                        The <code>Key</code> class acts as the Observer and comes in two flavors that override the method <code>test()</code>: <code>MomentaryKey</code> that handles single presses and <code>StateKey</code> that handles situations where holding the key is valid.
+                        Every frame we would iterate over all the <code>Key</code>, call the <code>test()</code> method and use the result to see if the <code>callback()</code> should be invoked.
+                        <a href="images/space-invaders-3.png" data-lightbox="space-invaders-3"><img src="images/space-invaders-3.png" style="float: left; width: 870px; padding-right: 10px;" alt="Uno Gameplay"></a>
+                    </p>
                 </div>
                 <div id="cursen" class="header">Cursen (C++)</div>
                 <div class="project">
